@@ -18,6 +18,9 @@ public class LaserController : MonoBehaviour
                TargetController target = hit.collider.GetComponent<TargetController>();
                if (target != null) target.TakeDamage(1);
            }
+           
+           HealthPlayer health =  hit.collider.GetComponentInParent<HealthPlayer>();
+           if (health != null) health.PlayerDammage(1);
         }
         
     }

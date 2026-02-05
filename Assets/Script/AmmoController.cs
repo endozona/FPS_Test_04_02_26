@@ -13,9 +13,17 @@ public class AmmoController: MonoBehaviour
         TargetController target = other.GetComponent<TargetController>();
         if (target != null)
         {
-            target.TakeDamage(2);
+           target.TakeDamage(2);
+           Destroy(gameObject);
+        }
+        
+        HealthPlayer hp = other.GetComponent<HealthPlayer>();
+        if (hp != null)
+        {
+            hp.PlayerDammage(2);
             Destroy(gameObject);
         }
+        
     }
     
     private void DestroyMe()
