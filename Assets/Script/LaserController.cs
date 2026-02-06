@@ -1,6 +1,9 @@
 ﻿using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.HID;
 
 public class LaserController : MonoBehaviour
 {
@@ -8,22 +11,37 @@ public class LaserController : MonoBehaviour
     
     private void Update()
     {
-        Debug.DrawRay(_originTranform.position, _originTranform.forward * 100,  Color.red);
-        if (Input.GetButtonDown("Fire1"))
-        {
-           Ray ray = new Ray(_originTranform.position, _originTranform.forward);
-
-           if (Physics.Raycast(ray, out RaycastHit hit))
-           {
-               TargetController target = hit.collider.GetComponent<TargetController>();
-               if (target != null) target.TakeDamage(1);
-           }
-           
-           HealthPlayer health =  hit.collider.GetComponentInParent<HealthPlayer>();
-           if (health != null) health.PlayerDammage(1);
-        }
+        // Debug.DrawRay(_originTranform.position, _originTranform.forward * 100,  Color.red);
+        // if (Input.GetButtonDown("Fire1"))
+        // {
+        //    Ray ray = new Ray(_originTranform.position, _originTranform.forward);
+        //
+        //    if (Physics.Raycast(ray, out RaycastHit hit))
+        //    {
+        //        TargetController target = hit.collider.GetComponent<TargetController>();
+        //        if (target != null) target.TakeDamage(1);
+        //    }
+        //    
+        //    HealthPlayer health =  hit.collider.GetComponentInParent<HealthPlayer>();
+        //    if (health != null) health.PlayerDammage(1);
+        // }
         
     }
+/**/ 
+    private void OnAttack(InputValue value)
+    {
+        MouseButton fire1 = value.Get<MouseButton>();
+        if (fire1 != null)
+        {
+            Ray ray = new Ray(_originTranform.position, _originTranform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                TargetController target = hit.collider.GetComponent<TargetController>();
+                if (target != null) target.TakeDamage(1);
+            }
+        }
+    }
+   
 }
 // private void OnDrawGizmos(){
 //     Gizmos.color = Color.red;
